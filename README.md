@@ -64,12 +64,9 @@ RESET
 
 ### Example Telemetry
 
-```text
-[TELEM] HEARTBEAT 3001
-[TELEM] TEMP 27
-[TELEM] WORKER 49
-[TELEM] TIMER EVENT
-```
+<img width="404" height="181" alt="freertossnippet" src="https://github.com/user-attachments/assets/c492c585-25e9-4a7c-9054-e4c912d58109" />
+<img width="260" height="278" alt="hostlinuxsnippet" src="https://github.com/user-attachments/assets/50685700-aa0c-4201-b89e-521b9cf449e1" />
+
 
 ## FIFO Communication
 
