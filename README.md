@@ -146,7 +146,6 @@ FreeRTOS/
 └── Demo/
     └── Posix_GCC/
         ├── main_blinky.c
-        ├── main.c
         ├── console.c
         └── Makefile
 
