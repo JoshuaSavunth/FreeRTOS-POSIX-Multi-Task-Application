@@ -77,7 +77,7 @@ This project also demonstrates several aspects of Linux FIFO-based IPC, includin
 
 * Blocking FIFO behavior
 * Non-blocking FIFO opens
-* Handling `ENXIO`
+* Handling ENXIO
 * Host-side IPC
 * The difference between POSIX IPC and FreeRTOS queues
 
