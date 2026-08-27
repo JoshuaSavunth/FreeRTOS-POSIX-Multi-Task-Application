@@ -64,7 +64,7 @@ RESET
 
 ### Example Output
 
-<img width="200" height="300" alt="freertossnippet" src="https://github.com/user-attachments/assets/c492c585-25e9-4a7c-9054-e4c912d58109" />
+<img width="250" height="300" alt="freertossnippet" src="https://github.com/user-attachments/assets/c492c585-25e9-4a7c-9054-e4c912d58109" />
 <img width="200" height="300" alt="hostlinuxsnippet" src="https://github.com/user-attachments/assets/50685700-aa0c-4201-b89e-521b9cf449e1" />
 
 
