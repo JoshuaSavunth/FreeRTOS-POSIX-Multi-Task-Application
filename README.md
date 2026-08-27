@@ -1,18 +1,16 @@
-# FreeRTOS-POSIX-Multi-Task-Application
+# FreeRTOS POSIX Multi-Task Application
 
-This project builds on the FreeRTOS POSIX demo and turns it into a small simulated embedded system running on Linux. It uses multiple FreeRTOS tasks that act as independent actors and communicate through queues and structured messages.
+This project builds on the FreeRTOS POSIX demo and turns it into a small simulated embedded system running on Linux. It uses multiple FreeRTOS tasks that communicate through queues, structured messages, synchronization primitives, and software timers.
 
 ## Features
-
-The system includes:
 
 * **Sensor task** — generates simulated temperature readings.
 * **Processing task** — classifies measurements.
 * **Worker task** — performs calculations.
-* **Logger task** — performs mutex-protected output.
-* **Monitor task** — monitors overall system status.
+* **Logger task** — handles mutex-protected output.
+* **Monitor task** — monitors system status.
 * **Software timer** — generates periodic heartbeat events.
-* **Host-side C program** — sends commands and receives telemetry through POSIX FIFOs.
+* **Host CLI** — sends commands and receives telemetry through POSIX FIFOs.
 
 ## Architecture
 
@@ -28,18 +26,13 @@ The system includes:
               ┌────────────────────────┐
               │    FreeRTOS POSIX App  │
               │                        │
-              │  Sensor                │
-              │     │                  │
-              │   Queue                │
-              │     ▼                  │
-              │  Processing            │
-              │    ┌─┴──────┐          │
-              │    ▼        ▼          │
-              │ Logger    Monitor      │
-              │    │        │          │
-              │    └── Mutex ┘         │
+              │  Sensor → Queue        │
+              │             ↓          │
+              │         Processing     │
+              │          ↙     ↘       │
+              │      Logger   Monitor  │
               │                        │
-              │    Software Timer      │
+              │     Software Timer     │
               └────────────────────────┘
 ```
 
@@ -53,33 +46,22 @@ Sensor data is passed through a FreeRTOS queue using a structured message contai
 * `measurement`
 * `status`
 
-The main data flow is:
-
 ```text
 Sensor → Queue → Processing → Logger / Monitor
 ```
 
-The system uses standard FreeRTOS APIs such as:
-
-* `xTaskCreate()`
-* `xQueueCreate()`
-* `xQueueSend()`
-* `xQueueReceive()`
-* Mutex APIs
-* Software timer APIs
+The application uses FreeRTOS tasks, queues, mutexes, and software timers for task scheduling, communication, synchronization, and periodic events.
 
 ## Host Interface
 
-The Linux host communicates with the RTOS application using two POSIX FIFOs:
+The Linux host communicates with the RTOS application through two POSIX FIFOs:
 
 ```text
 Host → /tmp/rtos_cmd
 Host ← /tmp/rtos_telemetry
 ```
 
-### Supported Commands
-
-The host CLI supports the following commands:
+Supported commands:
 
 ```text
 STATUS
@@ -88,7 +70,7 @@ STOP
 RESET
 ```
 
-### Example Telemetry
+Example telemetry:
 
 ```text
 [TELEM] HEARTBEAT 3001
@@ -97,46 +79,22 @@ RESET
 [TELEM] TIMER EVENT
 ```
 
-## FIFO Communication
-
-This project also demonstrates several aspects of Linux FIFO-based IPC, including:
-
-* Blocking FIFO behavior
-* Non-blocking FIFO opens
-* Handling `ENXIO`
-* Host-side IPC
-* The difference between POSIX IPC and FreeRTOS queues
-
-The host communicates with the FreeRTOS application through Linux FIFOs, while the FreeRTOS tasks communicate internally using queues and synchronization primitives.
+The FIFO interface also demonstrates blocking and non-blocking behavior, `ENXIO` handling, and the difference between Linux IPC and FreeRTOS inter-task communication.
 
 ## Building and Running
 
 ### FreeRTOS Application
 
-Build the FreeRTOS POSIX application with:
-
 ```bash
 make clean
 make
-```
-
-Then run it:
-
-```bash
 ./build/posix_demo
 ```
 
 ### Host CLI
 
-Build the host-side program:
-
 ```bash
 gcc host.c -o host
-```
-
-Then run it:
-
-```bash
 ./host
 ```
 
@@ -157,22 +115,15 @@ host/
 
 ## What This Project Covers
 
-This project provides hands-on experience with:
-
 * FreeRTOS tasks and scheduling
-* Inter-task communication with queues
-* Structured message passing
+* Inter-task communication and structured messages
 * Mutexes and shared resources
 * Software timers
 * Actor-style task design
 * POSIX FIFO IPC
 * Linux system programming
-* C development
-* Makefile-based development
-* Host-to-RTOS communication
+* C and Makefile-based development
 
-## Main Goal
+## Goal
 
-The main goal of this project is to take a basic FreeRTOS POSIX demo and build it into a more realistic embedded-style system.
-
-It demonstrates how tasks, synchronization, messaging, software timers, and Linux IPC can work together to create a small simulated embedded system running on a Linux host.
+The goal is to take a basic FreeRTOS POSIX demo and build it into a more realistic embedded-style system, demonstrating how tasks, messaging, synchronization, timers, and Linux IPC work together.
