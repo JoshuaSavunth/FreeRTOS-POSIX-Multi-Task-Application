@@ -14,34 +14,8 @@ The system includes:
 * **Software timer** — generates periodic heartbeat events.
 * **Host-side C program** — sends commands and receives telemetry through POSIX FIFOs.
 
-## Architecture
-
-```text
-                       Linux Host
-                    ┌──────────────┐
-                    │   Host CLI   │
-                    └──────┬───────┘
-                           │
-                      POSIX FIFOs
-                           │
-                           ▼
-              ┌────────────────────────┐
-              │    FreeRTOS POSIX App  │
-              │                        │
-              │  Sensor                │
-              │     │                  │
-              │   Queue                │
-              │     ▼                  │
-              │  Processing            │
-              │    ┌─┴──────┐          │
-              │    ▼        ▼          │
-              │ Logger    Monitor      │
-              │    │        │          │
-              │    └── Mutex ┘         │
-              │                        │
-              │    Software Timer      │
-              └────────────────────────┘
-```
+## System Overview
+The application runs several FreeRTOS tasks that pass data between them using queues. A sensor task generates simulated temperature readings and sends them to a processing task, which classifies each reading and passes the results to logging and monitoring tasks. A mutex prevents the logging tasks from writing over each other. A software timer sends a periodic heartbeat to confirm the system is still running. On the Linux side, a small CLI program sends commands like STATUS and STOP to the FreeRTOS app through a FIFO, and reads telemetry back through another FIFO.
 
 ## Communication
 
