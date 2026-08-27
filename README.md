@@ -62,10 +62,10 @@ STOP
 RESET
 ```
 
-### Example Telemetry
+### Example Output
 
-<img width="404" height="181" alt="freertossnippet" src="https://github.com/user-attachments/assets/c492c585-25e9-4a7c-9054-e4c912d58109" />
-<img width="260" height="278" alt="hostlinuxsnippet" src="https://github.com/user-attachments/assets/50685700-aa0c-4201-b89e-521b9cf449e1" />
+<img width="200" height="300" alt="freertossnippet" src="https://github.com/user-attachments/assets/c492c585-25e9-4a7c-9054-e4c912d58109" />
+<img width="200" height="300" alt="hostlinuxsnippet" src="https://github.com/user-attachments/assets/50685700-aa0c-4201-b89e-521b9cf449e1" />
 
 
 ## FIFO Communication
